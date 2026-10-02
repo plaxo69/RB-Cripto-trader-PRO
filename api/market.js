@@ -42,7 +42,7 @@ async function kraken(provider,asset,timeframe,limit){
   const rows=key?result[key]:null;
   if(!Array.isArray(rows)||rows.length<50)throw new Error("Kraken sem candles suficientes");
   const intervalMs=cfg.krakenInterval*60000,now=Date.now();
-  const candles=clean(rows.slice(-Math.min(300,Math.max(60,limit))).map(b=>{
+  const candles=clean(rows.slice(-Math.min(600,Math.max(60,limit))).map(b=>{
     const ts=Number(b[0])*1000;
     const isOpen=now<ts+intervalMs+1500;
     return {timestamp:new Date(ts).toISOString(),open:Number(b[1]),high:Number(b[2]),low:Number(b[3]),close:Number(b[4]),volume:Number(b[6]||0),complete:!isOpen,isOpen};
@@ -71,7 +71,7 @@ async function coinbase(provider,asset,timeframe,limit){
   ]);
   if(!Array.isArray(cr.data)||!cr.data.length)throw new Error("Coinbase sem candles");
   const intervalMs=cfg.coinbaseGranularity*1000,now=Date.now();
-  const candles=clean(cr.data.slice(0,Math.min(300,Math.max(60,limit))).map(b=>{
+  const candles=clean(cr.data.slice(0,Math.min(600,Math.max(60,limit))).map(b=>{
     const ts=Number(b[0])*1000,isOpen=now<ts+intervalMs+1500;
     return {timestamp:new Date(ts).toISOString(),open:Number(b[3]),high:Number(b[2]),low:Number(b[1]),close:Number(b[4]),volume:Number(b[5]||0),complete:!isOpen,isOpen};
   }));
