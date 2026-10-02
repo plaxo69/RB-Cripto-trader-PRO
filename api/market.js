@@ -1,3 +1,5 @@
+const axios=require("axios");
+
 const PROVIDERS=[
   {name:"Kraken",base:"https://api.kraken.com",assets:{
     BTCUSD:{product:"XBTUSD",display:"KRAKEN:XBTUSD"},
