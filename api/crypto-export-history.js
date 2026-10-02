@@ -5,7 +5,7 @@ module.exports=async function handler(req,res){
  const origin=String(req.headers.origin||'');let allowedOrigin=!origin;
  if(origin){try{const u=new URL(origin);allowedOrigin=u.protocol==='https:'&&u.hostname.endsWith('.vercel.app')}catch{}}
  if(!allowedOrigin)return json(res,403,{ok:false,error:'Origin not allowed'});
- const token=process.env.GITHUB_TOKEN;if(!token)return json(res,500,{ok:false,error:'GITHUB_TOKEN não está configurado no Vercel.'});
+ const token=process.env.GITHUB_TOKEN;if(!token)return json(res,503,{ok:false,error:'Histórico local funciona, mas guardar no GitHub requer GITHUB_TOKEN no Vercel.'});
  const body=req.body||{};if(!Array.isArray(body.trades))return json(res,400,{ok:false,error:'Formato inválido: trades[] em falta.'});
  const trades=body.trades.filter(t=>t&&['BTCUSD','ETHUSD'].includes(String(t.asset||'')));
  const payload={exportedAt:body.exportedAt||new Date().toISOString(),source:'RB Crypto Sniper',formatVersion:2,total:trades.length,trades};
