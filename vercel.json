@@ -1,0 +1,15 @@
+{
+  "version":2,
+  "builds":[
+    {"src":"server.js","use":"@vercel/node"},
+    {"src":"api/market.js","use":"@vercel/node"},
+    {"src":"api/crypto-trades.js","use":"@vercel/node"},
+    {"src":"api/crypto-export-history.js","use":"@vercel/node"}
+  ],
+  "routes":[
+    {"src":"/api/market","dest":"api/market.js"},
+    {"src":"/api/crypto-trades","dest":"api/crypto-trades.js"},
+    {"src":"/api/crypto-export-history","dest":"api/crypto-export-history.js"},
+    {"src":"/(.*)","dest":"server.js"}
+  ]
+}
