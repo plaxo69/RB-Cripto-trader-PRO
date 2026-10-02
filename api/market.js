@@ -94,7 +94,7 @@ async function coinbase(provider,asset,timeframe,limit){
 async function getMarket(asset,timeframe,requestedLimit=300){
   if(!["BTCUSD","ETHUSD"].includes(asset))throw new Error("Ativo inválido");
   if(!TF[timeframe])throw new Error("Timeframe inválido");
-  const limit=Math.min(300,Math.max(60,Number(requestedLimit)||300)),key=asset+":"+timeframe+":"+limit;
+  const limit=Math.min(600,Math.max(60,Number(requestedLimit)||300)),key=asset+":"+timeframe+":"+limit;
   const hit=cache.get(key);if(hit&&Date.now()-hit.t<CACHE_MS)return hit.v;
   if(inflight.has(key))return inflight.get(key);
 
@@ -120,7 +120,7 @@ async function handler(req,res){
   try{
     const asset=String(req.query.asset||"BTCUSD").toUpperCase();
     const timeframe=String(req.query.timeframe||"1m");
-    const limit=Math.min(300,Math.max(60,Number(req.query.limit)||300));
+    const limit=Math.min(600,Math.max(60,Number(req.query.limit)||300));
     res.status(200).json(await getMarket(asset,timeframe,limit));
   }catch(e){
     console.error("CRYPTO MARKET ERROR",e.message);
