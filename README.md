@@ -8,3 +8,5 @@ BTCUSD + ETHUSD sniper analysis using Coinbase market data and TradingView visua
 - Manual MT5 execution only; no automatic order execution
 - AI is opinion-only and does not block or alter technical signals
 - Local signal history with optional GitHub persistence
+
+<!-- VERCEL-DEPLOY-TRIGGER-2026-10-02 -->
