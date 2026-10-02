@@ -45,7 +45,7 @@ async function fetchCandles(asset,timeframe,requestedLimit=300){
   const quoteTime=tick.time?Date.parse(tick.time):NaN;
   const quoteAge=Number.isFinite(quoteTime)?Math.max(0,Math.round((Date.now()-quoteTime)/1000)):null;
   const stale=age>cfg.stale||(Number.isFinite(quoteAge)&&quoteAge>30)||!Number.isFinite(price);
-  return {success:true,source:`Coinbase ${meta.product}`,symbol:asset,displaySymbol:meta.display,timeframe,candles,last,price,delayedBy:age,candleTimestamp:last.timestamp,quoteTimestamp:tick.time||last.timestamp,candleAgeSec:age,candleStartAgeSec:age,quoteAgeSec:quoteAge,stale,marketState:"open",realOpenBar:last.isOpen===true,liveM1:timeframe==="1m"&&!stale,oandaLive:false,feedNotice:`${meta.product} OHLC + cotação ao vivo via Coinbase; TradingView mostra ${meta.display}`};
+  return {success:true,source:`Coinbase ${meta.product}`,symbol:asset,displaySymbol:meta.display,timeframe,candles,last,price,delayedBy:age,candleTimestamp:last.timestamp,quoteTimestamp:tick.time||last.timestamp,candleAgeSec:age,candleStartAgeSec:age,quoteAgeSec:quoteAge,stale,marketState:"open",realOpenBar:last.isOpen===true,liveM1:timeframe==="1m"&&!stale,feedNotice:`${meta.product} OHLC + cotação ao vivo via Coinbase; TradingView mostra ${meta.display}`};
 }
 async function getMarket(asset,timeframe,requestedLimit=300){
   if(!ASSETS[asset])throw new Error("Ativo inválido");
