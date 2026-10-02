@@ -3,7 +3,7 @@
     if(!Number.isFinite(entry)||!Number.isFinite(tp)||!Number.isFinite(sl)) return false;
     return type==='BUY' ? sl<entry&&entry<tp : type==='SELL' ? tp<entry&&entry<sl : false;
   }
-  const sniper=root.RBCryptoSniper;
+  const sniper=root.RBGoldSniper;
   if(!sniper||typeof sniper.analyze!=='function') return;
   const original=sniper.analyze;
   sniper.analyze=function(main,m5,m15,h1){
