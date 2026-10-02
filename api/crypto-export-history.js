@@ -1,4 +1,4 @@
-const REPO='plaxo69/RB-Cripto-trader-PRO',BRANCH='crypto-history-2026-10-02',PATH='historico-crypto-trades.json',API='https://api.github.com';
+const REPO='plaxo69/RB-Cripto-trader-PRO',BRANCH='main',PATH='historico-crypto-trades.json',API='https://api.github.com';
 function json(res,status,body){return res.status(status).json(body)}
 module.exports=async function handler(req,res){
  if(req.method!=='POST'){res.setHeader('Allow','POST');return json(res,405,{ok:false,error:'Method not allowed'})}
