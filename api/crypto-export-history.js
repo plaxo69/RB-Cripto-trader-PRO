@@ -7,7 +7,7 @@ module.exports=async function handler(req,res){
  if(!allowedOrigin)return json(res,403,{ok:false,error:'Origin not allowed'});
  const token=process.env.GITHUB_TOKEN;if(!token)return json(res,503,{ok:false,error:'Histórico local funciona, mas guardar no GitHub requer GITHUB_TOKEN no Vercel.'});
  const body=req.body||{};if(!Array.isArray(body.trades))return json(res,400,{ok:false,error:'Formato inválido: trades[] em falta.'});
- const trades=body.trades.filter(t=>t&&['BTCUSD','ETHUSD'].includes(String(t.asset||'')));
+ const trades=body.trades.filter(t=>t&&String(t.asset||'')==='BTCUSD');
  const payload={exportedAt:body.exportedAt||new Date().toISOString(),source:'RB Crypto Sniper',formatVersion:2,total:trades.length,trades};
  const content=Buffer.from(JSON.stringify(payload,null,2),'utf8').toString('base64');
  const headers={Authorization:`Bearer ${token}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json','User-Agent':'RB-CRYPTO-SNIPER'};
