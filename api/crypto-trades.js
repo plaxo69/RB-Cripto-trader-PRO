@@ -8,6 +8,6 @@ module.exports=async function handler(req,res){
  const data=await r.json();if(!r.ok)return send(res,r.status,{ok:false,error:data?.message||'Falha ao ler histórico Crypto.'});
  const raw=Buffer.from(data.content||'','base64').toString('utf8'),parsed=JSON.parse(raw),trades=Array.isArray(parsed)?parsed:(Array.isArray(parsed?.trades)?parsed.trades:[]);
  const limit=Math.min(Math.max(parseInt(req.query?.limit||'1000',10)||1000,1),5000);
- return send(res,200,{ok:true,trades:trades.filter(t=>t&&['BTCUSD','ETHUSD'].includes(String(t.asset||''))).slice(-limit),total:trades.length,source:'github',branch:BRANCH,exportedAt:parsed?.exportedAt||null});
+ return send(res,200,{ok:true,trades:trades.filter(t=>t&&String(t.asset||'')==='BTCUSD').slice(-limit),total:trades.length,source:'github',branch:BRANCH,exportedAt:parsed?.exportedAt||null});
  }catch(error){return send(res,500,{ok:false,error:error.message||'Erro interno.'})}
 };
